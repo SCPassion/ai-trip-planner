@@ -2,6 +2,7 @@ import React from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
+import { SignInButton } from "@clerk/nextjs";
 
 const menuOptions = [
   {
@@ -37,7 +38,9 @@ function Header() {
       </div>
 
       {/* Get started button */}
-      <Button>Get started</Button>
+      <SignInButton mode="modal">
+        <Button className="cursor-pointer">Get started</Button>
+      </SignInButton>
     </div>
   );
 }

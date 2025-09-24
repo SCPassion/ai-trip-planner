@@ -1,8 +1,11 @@
+"use client";
 import React from "react";
 import { Textarea } from "@/components/ui/textarea";
 import { Button } from "@/components/ui/button";
-import { Globe2, Landmark, Plane, Send } from "lucide-react";
+import { ArrowDown, Globe2, Landmark, Plane, Send } from "lucide-react";
 import { HeroVideoDialog } from "@/components/ui/hero-video-dialog";
+import { useUser } from "@clerk/nextjs";
+import { useRouter } from "next/navigation";
 
 const suggestions = [
   {
@@ -24,6 +27,16 @@ const suggestions = [
 ];
 
 export default function Hero() {
+  const { user } = useUser();
+  const router = useRouter();
+
+  function onSend() {
+    if (!user) {
+      router.push("/sign-in");
+      return;
+    }
+    // Navigate to create trip planner web page
+  }
   return (
     <div className="mt-24 flex items-center w-full justify-center">
       {/* Content */}
@@ -44,7 +57,11 @@ export default function Hero() {
               className="w-full h-28 bg-transparent border-none focus-visible:ring-0 shadow-none resize-none"
               placeholder="Create a trip for Paris from New York"
             />
-            <Button size="icon" className="absolute right-6 bottom-6">
+            <Button
+              size="icon"
+              className="absolute right-6 bottom-6 cursor-pointer"
+              onClick={() => onSend()}
+            >
               <Send className="size-4" />
             </Button>
           </div>
@@ -63,12 +80,17 @@ export default function Hero() {
           ))}
         </div>
 
+        <h2 className="my-4 mt-14 flex gap-2 items-center justify-center">
+          Not sure where to start? <strong>See how it works</strong>{" "}
+          <ArrowDown />
+        </h2>
+
         {/* Video Section */}
         <HeroVideoDialog
           className="block dark:hidden"
           animationStyle="from-center"
           // This is the video that will play when the thumbnail is clicked
-          videoSrc="https://www.youtube.com/watch?v=sXRDL-EPtrM"
+          videoSrc="https://youtube.com/embed/LSmFvTpTlzE"
           // This is the thumbnail of the video, aka a picture preview of the video, when clicked on the thumbnail, the video will play
           thumbnailSrc="https://mma.prnewswire.com/media/2401528/1_MindtripProduct.jpg?p=facebook"
           thumbnailAlt="Dummy Video Thumbnail"
