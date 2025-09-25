@@ -1,8 +1,9 @@
+"use client";
 import React from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
-import { SignInButton } from "@clerk/nextjs";
+import { SignInButton, useUser } from "@clerk/nextjs";
 
 const menuOptions = [
   {
@@ -19,8 +20,9 @@ const menuOptions = [
   },
 ];
 function Header() {
+  const { user } = useUser();
   return (
-    <div className="flex justify-between items-center p-4">
+    <div className="flex justify-between items-center p-4 shadow-sm">
       {/* Logo */}
       <div className="flex flex-row items-center gap-2">
         <Image src="/logo.svg" alt="logo" width={30} height={30} />
@@ -38,9 +40,15 @@ function Header() {
       </div>
 
       {/* Get started button */}
-      <SignInButton mode="modal">
-        <Button className="cursor-pointer">Get started</Button>
-      </SignInButton>
+      {!user ? (
+        <SignInButton mode="modal">
+          <Button className="cursor-pointer">Get started</Button>
+        </SignInButton>
+      ) : (
+        <Link href="/create-new-trip">
+          <Button className="cursor-pointer">Create New trip</Button>
+        </Link>
+      )}
     </div>
   );
 }

@@ -36,6 +36,7 @@ export default function Hero() {
       return;
     }
     // Navigate to create trip planner web page
+    router.push("/create-new-trip");
   }
   return (
     <div className="mt-24 flex items-center w-full justify-center">
