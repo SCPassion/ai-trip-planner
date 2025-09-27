@@ -7,6 +7,7 @@ import axios from "axios";
 import EmptyBoxState from "./EmptyBoxState";
 import GroupSizeUi from "./GroupSizeUi";
 import BudgetUi from "./BudgetUi";
+import TripDurationUI from "./TripDurationUI";
 
 type Message = {
   role: string;
@@ -69,7 +70,14 @@ function ChatBox() {
         />
       );
     } else if (ui === "tripDuration") {
-      // generate tripDuration UI
+      return (
+        <TripDurationUI
+          onSelectedOption={(option: string) => {
+            setUserInput((prev) => `${option}`);
+            onSend(option);
+          }}
+        />
+      );
     } else if (ui === "final") {
       // generate final UI
       return null;
