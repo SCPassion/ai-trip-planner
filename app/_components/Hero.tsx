@@ -7,7 +7,7 @@ import { HeroVideoDialog } from "@/components/ui/hero-video-dialog";
 import { useUser } from "@clerk/nextjs";
 import { useRouter } from "next/navigation";
 
-const suggestions = [
+export const suggestions = [
   {
     title: "Create New Trip",
     icon: <Globe2 className="text-blue-400 size-5" />,
